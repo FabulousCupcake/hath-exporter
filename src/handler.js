@@ -37,12 +37,6 @@ async function handleMetricsPrometheus(request) {
                 labels: labels,
             }),
             prom.Gauge({
-                name: 'hath_region_miss',
-                help: 'region miss (%)',
-                val: r.miss,
-                labels: labels,
-            }),
-            prom.Gauge({
                 name: 'hath_region_coverage',
                 help: 'region coverage',
                 val: r.coverage,
