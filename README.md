@@ -42,19 +42,19 @@ prometheus.scrape "hath_exporter" {
 ## Available Metrics
 | Name                          | Type    | labels          |
 |-------------------------------|---------|-----------------|
-| hath_region_load              | Gauge   | region          |
-| hath_region_hits_per_second   | Gauge   | region          |
 | hath_region_coverage          | Gauge   | region          |
 | hath_region_hits_per_gb       | Gauge   | region          |
+| hath_region_hits_per_second   | Gauge   | region          |
+| hath_region_load              | Gauge   | region          |
 | hath_region_quality           | Gauge   | region          |
-| hath_client_status            | Gauge   | name,id,country |
 | hath_client_created           | Gauge   | name,id,country |
 | hath_client_file_served_total | Counter | name,id,country |
-| hath_client_max_speed         | Gauge   | name,id,country |
-| hath_client_trust             | Gauge   | name,id,country |
-| hath_client_quality           | Gauge   | name,id,country |
-| hath_client_hit_rate          | Gauge   | name,id,country |
 | hath_client_hath_rate         | Gauge   | name,id,country |
+| hath_client_hit_rate          | Gauge   | name,id,country |
+| hath_client_max_speed         | Gauge   | name,id,country |
+| hath_client_quality           | Gauge   | name,id,country |
+| hath_client_status            | Gauge   | name,id,country |
+| hath_client_trust             | Gauge   | name,id,country |
 
 ## Development
 Put `.dev.vars` file in the project root containing the forum secrets:
