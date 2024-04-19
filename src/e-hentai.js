@@ -105,11 +105,11 @@ async function fetchHomePageData(authHeaders) {
     for (const tr of regionsCtx.tr) {
         const region = {
             name: tr[0],
-            load: +tr[3].replace(' MB/s', ''),
-            hits_per_sec: +tr[4],
-            coverage: +tr[5],
-            hits_per_gb: +tr[6],
-            quality: +tr[7],
+            load: tr[3].replace(' MB/s', ''),
+            hits_per_sec: tr[4],
+            coverage: tr[5],
+            hits_per_gb: tr[6],
+            quality: tr[7],
         }
         regions.push(region)
     }
@@ -119,22 +119,22 @@ async function fetchHomePageData(authHeaders) {
     for (const tr of clientsCtx.tr) {
         const client = {
             name: tr[0],
-            id: +tr[1],
+            id: tr[1],
             status: tr[2].toLowerCase(),
             created: tr[3],
             last_seen: tr[4],
-            file_served: +tr[5].replaceAll(',', ''),
+            file_served: tr[5].replaceAll(',', ''),
         }
 
         if (client.status === 'online') {
             client.ip = tr[6]
-            client.port = +tr[7]
+            client.port = tr[7]
             client.version = tr[8]
-            client.max_speed = +tr[9].replace(' KB/s', '')
-            client.trust = +tr[10]
-            client.quality = +tr[11]
-            client.hit_rate = +tr[12].replace(' / min', '')
-            client.hath_rate = +tr[13].replace(' / day', '')
+            client.max_speed = tr[9].replace(' KB/s', '')
+            client.trust = tr[10]
+            client.quality = tr[11]
+            client.hit_rate = tr[12].replace(' / min', '')
+            client.hath_rate = tr[13].replace(' / day', '')
             client.country = tr[14]
         }
 
