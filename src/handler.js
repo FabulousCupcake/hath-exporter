@@ -1,7 +1,7 @@
 import { fetchHomePageData } from './e-hentai'
 import prom from './prometheus'
 
-class HttpError extends Error {
+export class HttpError extends Error {
     constructor(code, ...args) {
         super(...args)
         this.code = code

@@ -1,4 +1,4 @@
-import { HttpError } from './helper'
+import { HttpError } from './handler'
 
 class TableContext {
     constructor(index) {
