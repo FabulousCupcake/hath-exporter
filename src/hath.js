@@ -102,9 +102,9 @@ export async function fetchHomePageData(ipb_member_id, ipb_pass_hash) {
         const region = {
             name: tr[0],
             load: +tr[3].replace(' MB/s', ''),
-            miss: +tr[4].replace(' %', ''),
+            hits_per_sec: +tr[4],
             coverage: +tr[5],
-            hits: +tr[6],
+            hits_per_gb: +tr[6],
             quality: +tr[7],
         }
         regions.push(region)
