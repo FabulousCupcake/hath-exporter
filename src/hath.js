@@ -86,9 +86,9 @@ export async function fetchHomePageData(ipb_member_id, ipb_pass_hash) {
         .on('table', regionsCtx)
         .on('table>tr', new TrHandler(regionsCtx))
         .on('table>tr>td', new TdHandler(regionsCtx))
-        .on('table.hct', clientsCtx)
-        .on('table.hct>tr', new TrHandler(clientsCtx))
-        .on('table.hct>tr>td', new TdHandler(clientsCtx))
+        .on('table#hct', clientsCtx)
+        .on('table#hct>tr', new TrHandler(clientsCtx))
+        .on('table#hct>tr>td', new TdHandler(clientsCtx))
         .transform(resp)
         .text()
 
@@ -125,7 +125,7 @@ export async function fetchHomePageData(ipb_member_id, ipb_pass_hash) {
         if (client.status === 'online') {
             client.ip = tr[6]
             client.port = +tr[7]
-            client.versin = tr[8]
+            client.version = tr[8]
             client.max_speed = +tr[9].replace(' KB/s', '')
             client.trust = +tr[10]
             client.quality = +tr[11]
