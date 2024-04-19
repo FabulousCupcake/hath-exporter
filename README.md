@@ -52,7 +52,12 @@ prometheus.scrape "hath_exporter" {
 | hath_client_hath_rate         | Gauge   | name,id,country |
 | hath_client_hit_rate          | Gauge   | name,id,country |
 | hath_client_max_speed         | Gauge   | name,id,country |
+| hath_client_p1_range          | Gauge   | name,id,country |
+| hath_client_p2_range          | Gauge   | name,id,country |
+| hath_client_p3_range          | Gauge   | name,id,country |
+| hath_client_p4_range          | Gauge   | name,id,country |
 | hath_client_quality           | Gauge   | name,id,country |
+| hath_client_static_range      | Gauge   | name,id,country |
 | hath_client_status            | Gauge   | name,id,country |
 | hath_client_trust             | Gauge   | name,id,country |
 
