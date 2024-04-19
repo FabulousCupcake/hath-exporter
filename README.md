@@ -6,17 +6,17 @@ You can deploy the worker to Cloudflare via `wrangler`:
 
 ```bash
 # Login
-$ npx wrangler login
+npx wrangler login
 
 # Deploy
-$ npx wrangler deploy
+npx wrangler deploy
 
 # Set secrets
 npx wrangler secret put IPB_MEMBER_ID
 npx wrangler secret put IPB_PASS_HASH
 
 # Test if it works
-$ curl https://hath-exporter.my-project.workers.dev/metrics
+curl https://hath-exporter.my-project.workers.dev/metrics
 ```
 
 Then configure prometheus or alloy to scrape it:
