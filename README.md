@@ -1,5 +1,5 @@
-# Hath metrics
-Hentai@Home metrics with prometheus and cloudflare workers.
+# hath-exporter
+Export hentai@home prometheus metrics with cloudflare workers
 
 ## Usage
 You can deploy the worker to Cloudflare via `wrangler`:
