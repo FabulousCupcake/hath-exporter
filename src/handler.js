@@ -1,6 +1,13 @@
-import { fetchHomePageData } from './hath'
-import { HttpError } from './helper'
+import { fetchHomePageData } from './e-hentai'
 import prom from './prometheus'
+
+class HttpError extends Error {
+    constructor(code, ...args) {
+        super(...args)
+        this.code = code
+        Error.captureStackTrace(this, HttpError)
+    }
+}
 
 async function getEhCookie(request) {
     const headers = request.headers
