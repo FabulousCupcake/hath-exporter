@@ -43,9 +43,15 @@ async function handleMetricsPrometheus(request) {
                 labels: labels,
             }),
             prom.Gauge({
-                name: 'hath_region_hits',
-                help: 'region hits',
-                val: r.hits,
+                name: 'hath_region_hits_per_second',
+                help: 'region hits per second',
+                val: r.hits_per_sec,
+                labels: labels,
+            }),
+            prom.Gauge({
+                name: 'hath_region_hits_per_gb',
+                help: 'region hits per gigabyte',
+                val: r.hits_per_gb,
                 labels: labels,
             }),
             prom.Gauge({
