@@ -1,6 +1,13 @@
-import { fetchHomePageData } from './hath'
-import { HttpError } from './helper'
+import { fetchHentaiAtHomeData } from './e-hentai'
 import prom from './prometheus'
+
+export class HttpError extends Error {
+    constructor(code, ...args) {
+        super(...args)
+        this.code = code
+        Error.captureStackTrace(this, HttpError)
+    }
+}
 
 async function getEhCookie(request) {
     const headers = request.headers
@@ -13,7 +20,7 @@ async function getEhCookie(request) {
 
 async function handleMetricsJson(request) {
     const ipb = await getEhCookie(request)
-    const data = await fetchHomePageData(ipb.id, ipb.pass_hash)
+    const data = await fetchHentaiAtHomeData(ipb.id, ipb.pass_hash)
 
     return new Response(JSON.stringify(data), {
         headers: {
@@ -24,7 +31,7 @@ async function handleMetricsJson(request) {
 
 async function handleMetricsPrometheus(request) {
     const ipb = await getEhCookie(request)
-    const data = await fetchHomePageData(ipb.id, ipb.pass_hash)
+    const data = await fetchHentaiAtHomeData(ipb.id, ipb.pass_hash)
 
     let metrics = []
     for (const r of data.regions) {
@@ -86,6 +93,36 @@ async function handleMetricsPrometheus(request) {
                 name: 'hath_client_file_served_total',
                 help: 'client total served file',
                 val: c.file_served,
+                labels: labels,
+            }),
+            prom.Counter({
+                name: 'hath_client_static_range',
+                help: 'client number of static range',
+                val: c.static_range,
+                labels: labels,
+            }),
+            prom.Counter({
+                name: 'hath_client_p1_range',
+                help: 'client number of p1 range',
+                val: c.p1_range || 0,
+                labels: labels,
+            }),
+            prom.Counter({
+                name: 'hath_client_p2_range',
+                help: 'client number of p2 range',
+                val: c.p2_range || 0,
+                labels: labels,
+            }),
+            prom.Counter({
+                name: 'hath_client_p3_range',
+                help: 'client number of p3 range',
+                val: c.p3_range || 0,
+                labels: labels,
+            }),
+            prom.Counter({
+                name: 'hath_client_p4_range',
+                help: 'client number of p4 range',
+                val: c.p4_range || 0,
                 labels: labels,
             }),
         )

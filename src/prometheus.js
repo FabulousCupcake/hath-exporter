@@ -1,4 +1,14 @@
-// https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md
+/*
+
+This is basically an alternative and extremely lean implementation of prom-client,
+since we don't actually need to keep track of and mutate the Counters or Gauges
+like traditional metric exporters.
+
+It basically boils down to a simple templater that produces [prometheus metrics][1].
+
+[1]: https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md
+
+*/
 
 function formatMetric(type, { name, help, val, labels }) {
     const fmt = `# HELP ${name} ${help}
@@ -24,7 +34,8 @@ function formatLabels(labels) {
     return `{${s}}`
 }
 
-function resolveValue(value) {
+function resolveValue(val) {
+    const value = parseFloat(val, 10);
     if (Number.isNaN(value)) {
         return 'Nan'
     } else if (!Number.isFinite(value)) {
