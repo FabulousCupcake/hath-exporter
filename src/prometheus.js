@@ -34,7 +34,8 @@ function formatLabels(labels) {
     return `{${s}}`
 }
 
-function resolveValue(value) {
+function resolveValue(val) {
+    const value = parseFloat(val, 10);
     if (Number.isNaN(value)) {
         return 'Nan'
     } else if (!Number.isFinite(value)) {
