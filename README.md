@@ -43,9 +43,9 @@ prometheus.scrape "hath_exporter" {
 | Name                          | Type    | labels          |
 |-------------------------------|---------|-----------------|
 | hath_region_load              | Gauge   | region          |
-| hath_region_miss              | Gauge   | region          |
+| hath_region_hits_per_second   | Gauge   | region          |
 | hath_region_coverage          | Gauge   | region          |
-| hath_region_hits              | Gauge   | region          |
+| hath_region_hits_per_gb       | Gauge   | region          |
 | hath_region_quality           | Gauge   | region          |
 | hath_client_status            | Gauge   | name,id,country |
 | hath_client_created           | Gauge   | name,id,country |
