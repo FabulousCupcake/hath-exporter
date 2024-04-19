@@ -80,5 +80,27 @@ prometheus.scrape "hath_exporter" {
 | hath_client_hit_rate          | Gauge   | name,id,country |
 | hath_client_hath_rate         | Gauge   | name,id,country |
 
-# License
-[Apache 2.0](LICENSE)
+## Development
+Put `.dev.vars` file in the project root containing the forum secrets:
+
+```sh
+IPB_MEMBER_ID=12345678
+IPB_PASS_HASH=0f18fd4cf40bfb1dec646807c7fa5522
+```
+
+Then use `wrangler` via `npm run dev`:
+```sh
+$ npm run dev
+> hath-metrics-workers@0.1.0 dev
+> wrangler dev
+
+ ⛅️ wrangler 3.51.2
+-------------------
+Using vars defined in .dev.vars
+Your worker has access to the following bindings:
+- Vars:
+  - IPB_MEMBER_ID: "(hidden)"
+  - IPB_PASS_HASH: "(hidden)"
+⎔ Starting local server...
+[wrangler:inf] Ready on http://localhost:8787
+```
