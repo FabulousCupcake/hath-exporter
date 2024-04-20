@@ -15,7 +15,7 @@ jobs:
         run: |
           mkdir -p dist
           npx esbuild --bundle --minify src/index.js > dist/worker.js
-          npx wrangler compile config.capnp > dist/hath-exporter
+          npx workerd compile config.capnp > dist/hath-exporter
 
       - name: Upload
         uses: actions/upload-artifact@v4
