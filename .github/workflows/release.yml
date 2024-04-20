@@ -13,6 +13,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir -p dist
           npx eslint build --bundle --minify src/index.js > dist/worker.js
           npx wrangler compile config.capnp > dist/hath-exporter
 
