@@ -9,18 +9,25 @@ export class HttpError extends Error {
     }
 }
 
-async function getEhCookie(request) {
-    const headers = request.headers
-    const ipb = {
-        id: headers.get('ipb_id') || globalThis.IPB_MEMBER_ID,
-        pass_hash: headers.get('ipb_pass_hash') || globalThis.IPB_PASS_HASH,
+// Override the `globalThis` env param with URL Query String
+// This allows the worker to be a more generic metric exporter
+async function resolveConfig(request) {
+    const { searchParams } = new URL(request.url)
+
+    console.log()
+
+    const ipb_member_id = searchParams.get("IPB_MEMBER_ID") || globalThis.IPB_MEMBER_ID;
+    const ipb_pass_hash = searchParams.get("IPB_PASS_HASH") || globalThis.IPB_PASS_HASH;
+
+    return {
+        ipb_member_id,
+        ipb_pass_hash,
     }
-    return ipb
 }
 
 async function handleMetricsJson(request) {
-    const ipb = await getEhCookie(request)
-    const data = await fetchHentaiAtHomeData(ipb.id, ipb.pass_hash)
+    const config = await resolveConfig(request)
+    const data = await fetchHentaiAtHomeData(config.ipb_member_id, config.ipb_pass_hash)
 
     return new Response(JSON.stringify(data), {
         headers: {
@@ -30,8 +37,8 @@ async function handleMetricsJson(request) {
 }
 
 async function handleMetricsPrometheus(request) {
-    const ipb = await getEhCookie(request)
-    const data = await fetchHentaiAtHomeData(ipb.id, ipb.pass_hash)
+    const config = await resolveConfig(request)
+    const data = await fetchHentaiAtHomeData(config.ipb_member_id, config.ipb_pass_hash)
 
     let metrics = []
     for (const r of data.regions) {
