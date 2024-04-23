@@ -2,6 +2,8 @@
 Export hentai@home prometheus metrics with cloudflare workers
 
 ## Usage
+
+### In Cloudflare as Cloudflare Worker
 You can deploy the worker to Cloudflare via `wrangler`:
 
 ```bash
@@ -38,6 +40,32 @@ prometheus.scrape "hath_exporter" {
   scrape_interval = "30m"
 }
 ```
+
+
+### Locally as executable
+You may want to run the worker locally, for example due to ratelimit reasons.
+I ran into it with scrape interval of `30m`, which seems to be due to Cloudflare Worker's shared / distributed compute nature.
+
+One way to solve this is to run the worker locally in your machine.
+Surprisingly, this is very easy to do! You can produce a single standalone binary executable with `workerd` (although the resulting binary is rather huge).
+
+Simply run it in the background, and configure prometheus or grafana alloy to scrape from it.
+You can also pass the credentials from alloy, for example:
+
+```ini
+prometheus.scrape "hath_exporter" {
+  targets = [{
+    "__address__" = "127.0.0.1:8080",
+    "__param_IPB_MEMBER_ID" = "12345678",
+    "__param_IPB_PASS_HASH" = "0f18fd4cf40bfb1dec646807c7fa5522",
+  }]
+  forward_to = [prometheus.remote_write.metrics_service.receiver]
+  scrape_interval = "15m"
+}
+```
+
+You can get a prebuilt binary in the [GitHub Releases][2] page although currently there's only one for ubuntu.
+
 
 ## Available Metrics
 | Name                          | Type    | labels          |
@@ -95,3 +123,4 @@ document.cookie.match(/ipb_pass_hash=(.+?);/)[1];
 ```
 
 [1]: https://e-hentai.org/hentaiathome.php
+[2]: https://github.com/FabulousCupcake/hath-exporter/releases

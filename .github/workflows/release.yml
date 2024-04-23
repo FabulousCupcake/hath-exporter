@@ -3,6 +3,10 @@ name: Release
 
 on:
   push:
+    branch: master
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -15,10 +19,16 @@ jobs:
         run: |
           mkdir -p dist
           npx esbuild --bundle --minify src/index.js > dist/worker.js
-          npx workerd compile config.capnp > dist/hath-exporter
+          npx workerd compile config.capnp > dist/hath-exporter-linux-amd64
 
-      - name: Upload
-        uses: actions/upload-artifact@v4
+      - id: generate-version
+        name: Generate Release Version
+        run: |
+          echo "version=$(date --iso)" > "$GITHUB_OUTPUT"
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: hath-exporter
-          path: dist/hath-exporter
+          files: dist/hath-exporter-linux-amd64
+          name: steps.generate-version.outputs.version
+          prerelease: true
