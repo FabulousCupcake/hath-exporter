@@ -2,11 +2,8 @@
 name: Release
 
 on:
-  push:
-    branch: master
-
-permissions:
-  contents: write
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -21,14 +18,7 @@ jobs:
           npx esbuild --bundle --minify src/index.js > dist/worker.js
           npx workerd compile config.capnp > dist/hath-exporter-linux-amd64
 
-      - id: generate-version
-        name: Generate Release Version
-        run: |
-          echo "version=$(date --iso)" > "$GITHUB_OUTPUT"
-
       - name: GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: dist/hath-exporter-linux-amd64
-          name: steps.generate-version.outputs.version
-          prerelease: true
