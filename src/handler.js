@@ -132,6 +132,12 @@ async function handleMetricsPrometheus(request) {
                 val: c.p4_range || 0,
                 labels: labels,
             }),
+            prom.Counter({
+                name: 'hath_client_hc_range',
+                help: 'client number of HC range',
+                val: c.hc_range || 0,
+                labels: labels,
+            }),
         )
 
         if (c.status === 'online') {

@@ -175,10 +175,10 @@ async function fetchClientPageData(clientId, authHeaders) {
     const row = tableCtx.tr[9][1];
     result.static_range = row.match(/has (\d+) static /)?.[1];
 
-    [...row.matchAll(/P(\d) = (\d+)/g)].map(p => {
-        const level = p[1];
+    [...row.matchAll(/(P\d|HC) = (\d+)/gi)].map(p => {
+        const level = p[1].toLowerCase();
         const value = p[2];
-        result[`p${level}_range`] = value;
+        result[`${level}_range`] = value;
     });
 
     return result;
