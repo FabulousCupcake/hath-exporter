@@ -107,9 +107,8 @@ async function fetchHomePageData(authHeaders) {
             name: tr[0],
             load: tr[3].replace(' MB/s', ''),
             hits_per_sec: tr[4],
-            coverage: tr[5],
-            hits_per_gb: tr[6],
-            quality: tr[7],
+            hits_per_gb: tr[5],
+            quality: tr[6],
         }
         regions.push(region)
     }
